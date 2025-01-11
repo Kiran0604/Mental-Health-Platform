@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe); /* Blue-to-teal gradient */
+            color: #333;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            min-height: 100vh;
+        }
+
+        /* Wrapper to center the content */
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers the content vertically */
+            align-items: center; /* Centers the content horizontally */
+            flex: 1; /* Allows the wrapper to grow and fill the available space */
+            width: 100%;
+        }
+
+        /* Header Styling */
+        h1 {
+            font-size: 3rem;
+            color: white;
+            background: linear-gradient(to right, #0062E6, #33AEFF); /* Deep blue-to-light blue gradient */
+            padding: 25px;
+            margin: 0;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .form-container:hover {
+            transform: scale(1.03);
+        }
+
+        /* Label Styling */
+        label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0062E6; /* Blue color */
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Input Styling */
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0 20px;
+            border-radius: 10px;
+            border: 1px solid #0062E6;
+            font-size: 1.1rem;
+            color: #333;
+            outline: none;
+            box-sizing: border-box;
+            transition: border 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #33AEFF; /* Light blue focus color */
+            box-shadow: 0 0 8px rgba(51, 174, 255, 0.5);
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #0062E6;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #33AEFF;
+            transform: translateY(-2px);
+        }
+
+        /* Link Styling */
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            font-size: 1rem;
+            text-decoration: none;
+            color: #0062E6;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #33AEFF;
+        }
+
+        /* Section Styling */
+        .section {
+            width: 90%;
+            max-width: 900px;
+            margin: 60px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            color: #0062E6;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section p {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .resources ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .resources ul li {
+            font-size: 1rem;
+            color: #0062E6;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+
+        .resources ul li a {
+            text-decoration: none;
+            color: #0062E6;
+            transition: color 0.3s ease;
+        }
+
+        .resources ul li a:hover {
+            color: #33AEFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Login</h1>
+    <div class="wrapper">
+        <!-- Form Container -->
+        <div class="form-container">
+            <form action="/login" method="POST">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <!-- Back Link -->
+            <div class="back-link">
+                <a href="/">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section about">
+        <h2>About Us</h2>
+        <p>We are a passionate team dedicated to providing high-quality solutions for all your needs. Our platform offers seamless experiences with intuitive design and reliable performance.</p>
+    </div>
+
+    <!-- Resources Section -->
+    <div class="section resources">
+        <h2>Resources</h2>
+        <ul>
+            <li><a href="https://www.mentalhealthindia.org/" target="_blank">Indian Mental Health Observatory - Information and Support</a></li>
+            <li><a href="https://vandrevalafoundation.com/" target="_blank">Vandrevala Foundation - 24/7 Mental Health Helpline</a></li>
+            <li><a href="https://sangath.in/" target="_blank">Sangath - Mental Health Care and Research</a></li>
+            <li><a href="https://mindtempleindia.com/" target="_blank">Mind Temple - Counselling and Psychiatry Services</a></li>
+            <li><a href="https://icallhelpline.org/" target="_blank">iCall - Tata Institute of Social Sciences Mental Health Helpline</a></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

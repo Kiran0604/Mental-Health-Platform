@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with {{ therapist_name }}</title>
+    <style>
+        /* Add styling for the chat window */
+        #chat-window {
+            width: 80%;
+            margin: 30px auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+        #chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #ffffff;
+        }
+        #chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        #chat-input input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        #chat-input button {
+            padding: 10px;
+            background-color: #6a0572;
+            color: white;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-window">
+        <h3>Chat with {{ therapist_name }}</h3>
+        <div id="chat-messages"></div>
+        <div id="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            if (!userInput) return;
+
+            const chatMessages = document.getElementById("chat-messages");
+            chatMessages.innerHTML += `<div><strong>You:</strong> ${userInput}</div>`;
+
+            const response = await fetch("/send-message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userInput, chat_id: {{ chat_id }} })
+            });
+
+            const data = await response.json();
+            chatMessages.innerHTML += `<div><strong>Therapist:</strong> ${data.response}</div>`;
+            document.getElementById("user-input").value = "";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
