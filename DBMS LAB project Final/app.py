@@ -10,7 +10,7 @@ app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Retrieve database credentials from environment variables
 db_config = {
-    'host': '192.168.29.222';
+    'host': '192.168.29.222',
     'port': 3306,
     'user': 'root',
     'password': 'Kiran@46',
