@@ -11,20 +11,30 @@ app.secret_key = 'your_secret_key'  # Replace with a secure key
 import os
 import psycopg2
 
-# Database connection details from environment variables
-db_config = {
-    'host': os.environ.get('DB_HOST'),
-    'port': os.environ.get('DB_PORT', 5432),  # default PostgreSQL port is 5432
-    'user': os.environ.get('DB_USER'),
-    'password': os.environ.get('DB_PASSWORD'),
-    'dbname': os.environ.get('DB_NAME')
-}
+import psycopg2
+from urllib.parse import urlparse
+
+# Database URL from environment variable or directly hardcoded (for testing)
+db_url = "postgresql://therapy_mj50_user:QohwReiuQ7iiKixCzSM24HMsd6RupWRw@dpg-cugfoflds78s738fqi7g-a/therapy_mj50"
 
 def get_db_connection():
     try:
+        # Parse the URL
+        result = urlparse(db_url)
+        
+        # Extract individual components from the URL
+        db_config = {
+            'host': result.hostname,
+            'port': result.port or 5432,  # Default PostgreSQL port is 5432
+            'user': result.username,
+            'password': result.password,
+            'dbname': result.path[1:]  # Remove leading slash
+        }
+
         # Connect to PostgreSQL
         conn = psycopg2.connect(**db_config)
-        # Check if connection is successful by getting the server version
+        
+        # Check if connection is successful
         if conn:
             print("Successfully connected to the database.")
             return conn
@@ -34,6 +44,7 @@ def get_db_connection():
     except psycopg2.Error as err:
         print(f"Error: {err}")
         return None
+
 
 # Home route
 @app.route('/')
