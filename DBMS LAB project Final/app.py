@@ -1,23 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
-import mysql.connector # type: ignore
-from datetime import date, datetime
-import regex as re
-import os
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure key
-
-# Retrieve database credentials from environment variables
-db_config = {
-    'host': os.environ.get('DB_HOST', 'localhost'),
-    'port': os.environ.get('DB_PORT', 3306),
-    'user': os.environ.get('DB_USER', 'root'),
-    'password': os.environ.get('DB_PASSWORD', 'Kiran@46'),
-    'database': os.environ.get('DB_NAME', 'therapy')
-}
-
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 import mysql.connector  # type: ignore
 from datetime import date, datetime
 import regex as re
@@ -28,11 +10,11 @@ app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Retrieve database credentials from environment variables
 db_config = {
-    'host': os.environ.get('DB_HOST', 'localhost'),
-    'port': os.environ.get('DB_PORT', 3306),
-    'user': os.environ.get('DB_USER', 'root'),
-    'password': os.environ.get('DB_PASSWORD', 'Kiran@46'),
-    'database': os.environ.get('DB_NAME', 'therapy')
+    'host': '192.168.1.100',  # Replace with your laptop's IP
+    'port': 3306,
+    'user': 'root',
+    'password': 'Kiran@46',
+    'database': 'therapy'
 }
 
 def get_db_connection():
