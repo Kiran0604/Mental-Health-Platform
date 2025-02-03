@@ -16,15 +16,36 @@ db_config = {
     'database': os.environ.get('DB_NAME', 'therapy')
 }
 
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+import mysql.connector  # type: ignore
+from datetime import date, datetime
+import regex as re
+import os
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Replace with a secure key
+
+# Retrieve database credentials from environment variables
+db_config = {
+    'host': os.environ.get('DB_HOST', 'localhost'),
+    'port': os.environ.get('DB_PORT', 3306),
+    'user': os.environ.get('DB_USER', 'root'),
+    'password': os.environ.get('DB_PASSWORD', 'Kiran@46'),
+    'database': os.environ.get('DB_NAME', 'therapy')
+}
+
 def get_db_connection():
-    connection = mysql.connector.connect(
-        host=db_config['host'],
-        port=db_config['port'],
-        user=db_config['user'],
-        password=db_config['password'],
-        database=db_config['database']
-    )
-    return connection
+    try:
+        conn = mysql.connector.connect(**db_config)
+        if conn.is_connected():
+            return conn
+        else:
+            print("Failed to connect to the database.")
+            return None
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
     
 # Home route
 @app.route('/')
