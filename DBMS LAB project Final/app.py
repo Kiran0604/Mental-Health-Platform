@@ -172,7 +172,7 @@ def home():
 def get_user_by_username(username):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)  # Ensure results are in dictionary form
-    cursor.execute("SELECT UserID, Username, Password, Role, PatientID, TherapistID FROM Users WHERE Username = %s", (username,))
+    cursor.execute("SELECT UserID, Username, Password, Role, PatientID, TherapistID FROM users WHERE Username = %s", (username,))
     user = cursor.fetchone()
 
     if user:
@@ -214,7 +214,7 @@ def login():
         cursor = conn.cursor(dictionary=True)
 
         # Fetch user details based on username
-        cursor.execute("SELECT * FROM Users WHERE Username = %s", (username,))
+        cursor.execute("SELECT * FROM users WHERE Username = %s", (username,))
         user = cursor.fetchone()
         
         # Close cursor after use
@@ -314,7 +314,7 @@ def register():
                 therapy_goals = request.form.get('therapy_goals', '')
 
                 # Check if username already exists
-                cursor.execute("SELECT * FROM Users WHERE Username = %s", (username,))
+                cursor.execute("SELECT * FROM users WHERE Username = %s", (username,))
                 if cursor.fetchone():
                     flash("Username already exists. Please choose a different one.", "warning")
                 else:
@@ -324,7 +324,7 @@ def register():
                     ''', (name, age, contact_info, diagnosis, therapy_goals))
                     patient_id = cursor.lastrowid
                     cursor.execute('''
-                        INSERT INTO Users (Username, Password, Role, PatientID) 
+                        INSERT INTO users (Username, Password, Role, PatientID) 
                         VALUES (%s, %s, 'Patient', %s)
                     ''', (username, hashed_password, patient_id))
                     conn.commit()
@@ -342,7 +342,7 @@ def register():
                 address = request.form['address']
                 amount = request.form['amount']  # Define the amount variable
                 # Check if username already exists
-                cursor.execute("SELECT * FROM Users WHERE Username = %s", (username,))
+                cursor.execute("SELECT * FROM users WHERE Username = %s", (username,))
                 if cursor.fetchone():
                     flash("Username already exists. Please choose a different one.", "warning")
                 else:
@@ -352,7 +352,7 @@ def register():
                     ''', (name, specialization, contact_info,address,amount))
                     therapist_id = cursor.lastrowid
                     cursor.execute('''
-                        INSERT INTO Users (Username, Password, Role, TherapistID) 
+                        INSERT INTO users (Username, Password, Role, TherapistID) 
                         VALUES (%s, %s, 'Therapist', %s)
                     ''', (username, hashed_password, therapist_id))
                     conn.commit()
