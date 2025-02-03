@@ -13,7 +13,7 @@ import psycopg2
 from urllib.parse import urlparse
 
 # Database URL (you should set this dynamically as per your environment)
-db_url = "postgresql://therapy_mj50_user:QohwReiuQ7iiKixCzSM24HMsd6RupWRw@dpg-cugfoflds78s738fqi7g-a/therapy_mj50"
+db_url = "postgresql://therapy_mj50_user:QohwReiuQ7iiKixCzSM24HMsd6RupWRw@dpg-cugfoflds78s738fqi7g-a.singapore-postgres.render.com/therapy_mj50"
 
 def get_db_connection():
     try:
