@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Resources</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f6d365, #fda085);
+            color: #444;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 3rem;
+            color: white;
+            background-color: #6a0572;
+            padding: 25px;
+            margin: 0;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        .resources-list {
+            width: 80%;
+            max-width: 900px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            margin: 20px 0;
+            text-align: left;
+        }
+        .resource-category {
+            margin-bottom: 30px;
+        }
+        .resource-category h2 {
+            font-size: 2rem;
+            color: #6a0572;
+            border-bottom: 2px solid #fda085;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center; /* Center-align the headings */
+        }
+        .resource-item {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .resource-item a {
+            color: #6a0572;
+            text-decoration: none;
+        }
+        .resource-item a:hover {
+            color: #fda085;
+        }
+        .back-link {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #6a0572;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #6a0572;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            color: #fda085;
+            background-color: #6a0572;
+            border-color: #fda085;
+        }
+    </style>
+</head>
+<body>
+    <h1> Self-Care Resources Library</h1>
+    <div class="wrapper">
+        <div class="resources-list">
+            <div class="resource-category">
+                <h2>Articles (Mental Health Resources in India)</h2>
+                <div class="resource-item"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3705690/" target="_blank">The Mental Health Awareness in India</a> - A detailed article on mental health awareness and challenges in India.</div>
+                <div class="resource-item"><a href="https://www.thehindu.com/sci-tech/health/mental-health-in-india-challenges-and-solutions/article65494742.ece" target="_blank">Mental Health in India: Challenges and Solutions</a> - Discusses the state of mental health in India and potential solutions.</div>
+                <div class="resource-item"><a href="https://www.youthkiawaaz.com/2021/10/mental-health-resources-in-india/" target="_blank">Your Mental Health Matters: A Guide to Seeking Help in India</a> - A guide to mental health resources and support systems in India.</div>
+                <div class="resource-item"><a href="https://www.indiatoday.in/education-today/featurephilia/story/mental-health-in-india-breaking-the-stigma-1856191-2021-10-10" target="_blank">Mental Health in India: Breaking the Stigma</a> - Focuses on reducing stigma and promoting mental health awareness.</div>
+                <div class="resource-item"><a href="https://www.barandbench.com/columns/mental-healthcare-act-2017-india" target="_blank">Understanding Mental Health Laws in India</a> - Explains the Mental Healthcare Act, 2017, and its implications.</div>
+            </div>
+            
+            <div class="resource-category">
+                <h2>Apps (Mental Health Support)</h2>
+                <div class="resource-item"><a href="https://www.wysa.io/" target="_blank">Wysa</a> - An AI-based mental health app with therapy options and self-help tools.</div>
+                <div class="resource-item"><a href="https://www.yourdost.com/" target="_blank">YourDOST</a> - Provides online counseling and emotional support.</div>
+                <div class="resource-item"><a href="https://www.theinnerhour.com/" target="_blank">InnerHour</a> - Offers self-help tools, therapy, and mental health resources.</div>
+                <div class="resource-item"><a href="https://www.mindhouse.com/" target="_blank">Mindhouse</a> - Focuses on meditation, mindfulness, and stress management.</div>
+                <div class="resource-item"><a href="https://amahahealth.com/" target="_blank">Amaha (formerly InnerHour)</a> - Provides therapy, support groups, and mental health resources.</div>
+            </div>
+            
+            <div class="resource-category">
+                <h2>Helplines (Mental Health Support in India)</h2>
+                <div class="resource-item">Vandrevala Foundation Helpline - Call: 1860 2662 345 or 1800 2333 330 | Email: <a href="mailto:help@vandrevalafoundation.com">help@vandrevalafoundation.com</a> - 24/7 mental health support and counseling.</div>
+                <div class="resource-item">iCall Psychosocial Helpline - Call: 9152987821 (Mon-Sat, 10 AM–8 PM) | Email: <a href="mailto:icall@tiss.edu">icall@tiss.edu</a> - Provides counseling and support.</div>
+                <div class="resource-item">Fortis Mental Health Helpline - Call: +91 8376804102 - 24/7 helpline for mental health support.</div>
+                <div class="resource-item">Roshni Trust Helpline - Call: 040 66202000 or 040 66202001 | Email: <a href="mailto:help@roshnitrust.org">help@roshnitrust.org</a> - Focuses on emotional distress and suicide prevention.</div>
+                <div class="resource-item">Kiran Mental Health Helpline - Call: 1800 599 0019 - 24/7 toll-free helpline by the Government of India.</div>
+            </div>
+            
+            <div class="resource-category">
+                <h2>Videos (Mental Health Awareness and Support)</h2>
+                <div class="resource-item"><a href="https://www.youtube.com/watch?v=Ux14_DEw7Hs&utm_source=chatgpt.com" target="_blank">Mental Health in India: A Documentary</a> - Explores the challenges and solutions for mental health in India.</div>
+                <div class="resource-item"><a href="https://www.youtube.com/watch?v=MB5IX-np5fE&utm_source=chatgpt.com" target="_blank">Understanding Depression and Anxiety in India</a> - A TEDx talk on mental health issues and coping mechanisms.</div>
+                <div class="resource-item"><a href="https://www.youtube.com/watch?v=fIy-iJmmZDg&utm_source=chatgpt.com" target="_blank">How to Seek Mental Health Help in India</a> - A guide to accessing mental health resources in India.</div>
+                <div class="resource-item"><a href="https://www.youtube.com/watch?v=TqxxCYnAxo8&utm_source=chatgpt.com" target="_blank">Yoga and Mindfulness for Mental Health</a> - Demonstrates yoga and mindfulness techniques for stress relief.</div>
+                <div class="resource-item"><a href="https://www.youtube.com/watch?v=85QY_d-8J2M&utm_source=chatgpt.com" target="_blank">Breaking the Stigma: Mental Health Stories from India</a> - Personal stories of individuals overcoming mental health challenges.</div>
+            </div>
+        </div>
+        <a class="back-link" href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>
