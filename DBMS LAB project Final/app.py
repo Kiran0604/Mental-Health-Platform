@@ -1213,35 +1213,6 @@ def delete_note(note_id):
     finally:
         cursor.close()
         conn.close()
-        
-import google.generativeai as genai
-# Configure the Gemini API
-genai.configure(api_key="AIzaSyArfbShGCsh2JqfUbiuoLAWfb4RLh85RdY")
-model = genai.GenerativeModel("gemini-1.5-flash")
-
-# Function to generate a response based on user input
-def generate_response(user_input):
-    response = model.generate_content(user_input)
-    return response.text
-
-@app.route('/chat', methods=['POST'])
-def chat():
-    user_message = request.json.get('message')  # Get the message from the client
-    if not user_message:
-        return jsonify({"response": "Sorry, I didn't understand that. Can you please try again?"})
-
-    # Generate a response using the Gemini model
-    bot_response = generate_response(user_message)
-
-    # Replace newlines with <br> for formatting
-    bot_response = bot_response.replace("\n", "<br>")
-
-    # Use regex to bold the point names (headers)
-    bot_response = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', bot_response)
-
-    # Return the response in a format that the frontend can render as HTML
-    return jsonify({"response": bot_response})
-
 
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
