@@ -8,27 +8,33 @@ import os
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-# Retrieve database credentials from environment variables
+import os
+import psycopg2
+
+# Database connection details from environment variables
 db_config = {
-    'host': '192.168.29.222',
-    'port': 3306,
-    'user': 'root',
-    'password': 'Kiran@46',
-    'database': 'therapy'
+    'host': os.environ.get('DB_HOST'),
+    'port': os.environ.get('DB_PORT', 5432),  # default PostgreSQL port is 5432
+    'user': os.environ.get('DB_USER'),
+    'password': os.environ.get('DB_PASSWORD'),
+    'dbname': os.environ.get('DB_NAME')
 }
 
 def get_db_connection():
     try:
-        conn = mysql.connector.connect(**db_config)
-        if conn.is_connected():
+        # Connect to PostgreSQL
+        conn = psycopg2.connect(**db_config)
+        # Check if connection is successful by getting the server version
+        if conn:
+            print("Successfully connected to the database.")
             return conn
         else:
             print("Failed to connect to the database.")
             return None
-    except mysql.connector.Error as err:
+    except psycopg2.Error as err:
         print(f"Error: {err}")
         return None
-    
+
 # Home route
 @app.route('/')
 def home():
