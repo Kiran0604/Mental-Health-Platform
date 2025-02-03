@@ -8,13 +8,11 @@ import os
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-import os
 import psycopg2
-
 import psycopg2
 from urllib.parse import urlparse
 
-# Database URL from environment variable or directly hardcoded (for testing)
+# Database URL (you should set this dynamically as per your environment)
 db_url = "postgresql://therapy_mj50_user:QohwReiuQ7iiKixCzSM24HMsd6RupWRw@dpg-cugfoflds78s738fqi7g-a/therapy_mj50"
 
 def get_db_connection():
@@ -45,6 +43,116 @@ def get_db_connection():
         print(f"Error: {err}")
         return None
 
+def create_tables():
+    create_tables_query = """
+    -- Creating Admins Table
+    CREATE TABLE IF NOT EXISTS Admins (
+        admin_id SERIAL PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        password VARCHAR(255) NOT NULL,
+        contact_info VARCHAR(255) NOT NULL,
+        full_name VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- Creating Patients Table
+    CREATE TABLE IF NOT EXISTS Patients (
+        PatientID SERIAL PRIMARY KEY,
+        Name VARCHAR(255) NOT NULL,
+        Age INT NOT NULL,
+        ContactInfo VARCHAR(255) NOT NULL,
+        Diagnosis TEXT,
+        TherapyGoals TEXT
+    );
+
+    -- Creating Therapists Table
+    CREATE TABLE IF NOT EXISTS Therapists (
+        TherapistID SERIAL PRIMARY KEY,
+        Name VARCHAR(255) NOT NULL,
+        Specialization VARCHAR(255) NOT NULL,
+        ContactInfo VARCHAR(255) NOT NULL,
+        Address VARCHAR(255) NOT NULL,
+        IsVerified BOOLEAN DEFAULT FALSE,
+        Amount DECIMAL(10, 2) DEFAULT 0,
+        status VARCHAR(50) DEFAULT 'Available'
+    );
+
+    -- Creating Appointments Table
+    CREATE TABLE IF NOT EXISTS Appointments (
+        AppointmentID SERIAL PRIMARY KEY,
+        PatientID INT REFERENCES Patients(PatientID),
+        TherapistID INT REFERENCES Therapists(TherapistID),
+        Date DATE,
+        Time TIME,
+        feedback_given BOOLEAN DEFAULT FALSE,
+        status VARCHAR(50) DEFAULT 'scheduled',
+        can_leave_feedback BOOLEAN DEFAULT FALSE
+    );
+
+    -- Creating Feedback Table
+    CREATE TABLE IF NOT EXISTS Feedback (
+        FeedbackID SERIAL PRIMARY KEY,
+        AppointmentID INT REFERENCES Appointments(AppointmentID),
+        Rating INT CHECK (Rating BETWEEN 1 AND 5),
+        Comments TEXT,
+        Date DATE
+    );
+
+    -- Creating PaymentRecords Table
+    CREATE TABLE IF NOT EXISTS PaymentRecords (
+        PaymentID SERIAL PRIMARY KEY,
+        PatientID INT REFERENCES Patients(PatientID),
+        AppointmentID INT REFERENCES Appointments(AppointmentID),
+        Amount DECIMAL(10, 2),
+        PaymentDate DATE,
+        PaymentMethod VARCHAR(50)
+    );
+
+    -- Creating Users Table
+    CREATE TABLE IF NOT EXISTS users (
+        UserID SERIAL PRIMARY KEY,
+        PaymentID INT REFERENCES PaymentRecords(PaymentID),
+        TherapistID INT REFERENCES Therapists(TherapistID),
+        UserName VARCHAR(255) NOT NULL,
+        Password VARCHAR(255) NOT NULL,
+        role VARCHAR(50) CHECK (role IN ('patient', 'therapist')) NOT NULL
+    );
+
+    -- Creating Messages Table
+    CREATE TABLE IF NOT EXISTS Messages (
+        MessageID SERIAL PRIMARY KEY,
+        SenderID INT REFERENCES users(UserID),
+        ReceiverID INT REFERENCES users(UserID),
+        Message TEXT,
+        Date DATE,
+        Time TIME
+    );
+
+    -- Creating Therapist Notes Table
+    CREATE TABLE IF NOT EXISTS therapistnotes (
+        NoteID SERIAL PRIMARY KEY,
+        TherapistID INT REFERENCES Therapists(TherapistID),
+        PaymentID INT REFERENCES PaymentRecords(PaymentID),
+        AppointmentID INT REFERENCES Appointments(AppointmentID),
+        NoteText TEXT,
+        datecreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    """
+
+    conn = get_db_connection()
+    if conn:
+        try:
+            # Create a cursor object using a context manager
+            with conn.cursor() as cursor:
+                cursor.execute(create_tables_query)  # Execute the SQL command
+                conn.commit()  # Commit the changes to the database
+                print("Tables created successfully.")
+        except psycopg2.Error as err:
+            print(f"Error creating tables: {err}")
+        finally:
+            conn.close()
+
+# Call the function to create the tables
 
 # Home route
 @app.route('/')
@@ -1607,4 +1715,4 @@ def chatbot():
     return render_template('dialogflow.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    create_tables()
