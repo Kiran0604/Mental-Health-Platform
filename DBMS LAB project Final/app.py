@@ -1715,4 +1715,4 @@ def chatbot():
     return render_template('dialogflow.html')
 
 if __name__ == '__main__':
-    create_tables()
+    app.run(debug=True)
