@@ -7,18 +7,25 @@ import regex as re
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-# Database configuration
+# Retrieve database credentials from environment variables
 db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'Kiran@46',  # Replace with your actual password
-    'database': 'therapy'    # Database name updated
+    'host': os.environ.get('DB_HOST', 'localhost'),
+    'port': os.environ.get('DB_PORT', 3306),
+    'user': os.environ.get('DB_USER', 'root'),
+    'password': os.environ.get('DB_PASSWORD', 'Kiran@46'),
+    'database': os.environ.get('DB_NAME', 'therapy')
 }
 
-# Database connection function
 def get_db_connection():
-    return mysql.connector.connect(**db_config)
-
+    connection = mysql.connector.connect(
+        host=db_config['host'],
+        port=db_config['port'],
+        user=db_config['user'],
+        password=db_config['password'],
+        database=db_config['database']
+    )
+    return connection
+    
 # Home route
 @app.route('/')
 def home():
