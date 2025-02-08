@@ -1,7 +1,0 @@
-applications: 
-"  - name: mental-health-platform" 
-"    memory: 256M" 
-"    instances: 1" 
-"    path: ." 
-"    buildpacks:" 
-"      - python_buildpack" 
