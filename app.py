@@ -1622,6 +1622,6 @@ def index():
 def chatbot():
     return render_template('dialogflow.html')
 
-if __name__ == '__main__':
-    port = int(os.getenv("PORT", 5000))  # Default to 5000 if PORT is not set
-    app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
+
