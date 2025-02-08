@@ -51,7 +51,7 @@ def home():
 def get_user_by_username(username):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)  # Ensure results are in dictionary form
-    cursor.execute("SELECT UserID, Username, Password, Role, PatientID, TherapistID FROM User WHERE Username = %s", (username,))
+    cursor.execute("SELECT UserID, Username, Password, Role, PatientID, TherapistID FROM users WHERE Username = %s", (username,))
     user = cursor.fetchone()
 
     if user:
@@ -169,12 +169,12 @@ def register():
                 admin_notes = request.form.get('admin_notes', '')  # Optional field
 
                 # Check if username already exists in Admins table
-                cursor.execute("SELECT * FROM Admins WHERE username = %s", (username,))
+                cursor.execute("SELECT * FROM Admin WHERE username = %s", (username,))
                 if cursor.fetchone():
                     flash("Username already exists. Please choose a different one.", "warning")
                 else:
                     cursor.execute('''
-                        INSERT INTO Admins (Username, Password, FullName, ContactInfo, AdminNotes) 
+                        INSERT INTO Admin (Username, Password, FullName, ContactInfo, AdminNotes) 
                         VALUES (%s, %s, %s, %s, %s)
                     ''', (username, hashed_password, name, contact_info, admin_notes))
                     conn.commit()
